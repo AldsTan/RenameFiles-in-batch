@@ -1,7 +1,7 @@
 import os, sys
 from tkinter import (
 	filedialog, Listbox, Button, Scrollbar,
-	ttk, Tk, END,
+	ttk, Tk, Frame, END,
 	IntVar, StringVar
 	)
 # Function to rename multiple files 
@@ -20,8 +20,13 @@ def MainWindow():
 	# @todo add x and y scrollbars
 	text_files.grid(row=0, column=1, columnspan=10)
 
-	btn_files = Button(window, text='Browse...', fg='black', command=lambda:text_files.insert(END, *getFilenames()))
-	btn_files.grid(row=0, column=12)
+	btnFrame1 = Frame(window)
+
+	btn_files = Button(btnFrame1, text='Browse...', fg='black', width=8, command=lambda:text_files.insert(END, *getFilenames()))
+	btn_clear = Button(btnFrame1, text='Clear', fg='black', width=8, command=lambda:text_files.delete(0, END))
+	btn_files.grid(row=0, column=0)
+	btn_clear.grid(row=1, column=0)
+	btnFrame1.grid(row=0, column=12)
 
 
 	# 2nd row - index
@@ -74,6 +79,10 @@ def MainWindow():
 
 	window.mainloop()
 
+def getFilenames():
+	files = filedialog.askopenfilenames(title="Select all files to rename")
+	return list(files)
+	
 def rename(files_list, i, skip_list, z, filename_template):
     ''' Core rename function '''
     files_list = list(files_list)
@@ -89,10 +98,7 @@ def rename(files_list, i, skip_list, z, filename_template):
             i += 1
     	except Exception as error:
     		print(f'An error occurred: <{error}>')
-
-def getFilenames():
-	files = filedialog.askopenfilenames(title="Select all files to rename")
-	return list(files)
+			
 
 if __name__ == '__main__': 
 	MainWindow()

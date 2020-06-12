@@ -12,7 +12,7 @@ Requirements:
 
 The GUI is written in tkinter to minimize the use of big libraries.
 
-### Future plans:
+## Future plans:
 * Add skip indices
 * Add scrollbars on listbox
 * Fix the index format preview
